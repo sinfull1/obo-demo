@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard - OAuth 2.0 OBO Demo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">OAuth 2.0 OBO Demo</a>
+        <div class="navbar-nav ms-auto">
+            <a class="nav-link" href="/logout">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Welcome, <span th:text="${username}">User</span>!</h3>
+                </div>
+                <div class="card-body">
+                    <h5>User Information:</h5>
+                    <ul>
+                        <li><strong>Username:</strong> <span th:text="${username}">N/A</span></li>
+                        <li><strong>Email:</strong> <span th:text="${email}">N/A</span></li>
+                        <li><strong>User ID:</strong> <span th:text="${userId}">N/A</span></li>
+                        <li><strong>Full Name:</strong> <span th:text="${fullName}">N/A</span></li>
+                    </ul>
+
+                    <div th:if="${hasToken}" class="alert alert-success">
+                        ✅ OAuth2 token is available for API calls
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Profile API</h5>
+                                    <p class="card-text">Call API Service 1 directly to get your profile information.</p>
+                                    <a href="/api/profile" class="btn btn-info">Get Profile</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">On-Behalf-Of Flow</h5>
+                                    <p class="card-text">Trigger the complete OBO flow to retrieve secure data from API Service 2.</p>
+                                    <a href="/api/delegate-call" class="btn btn-primary">Start OBO Flow</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: api-service-1
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${KEYCLOAK_URL:http://localhost:8081}/realms/obo-demo-realm/protocol/openid-connect/certs
+
+keycloak:
+  url: ${KEYCLOAK_URL:http://localhost:8081}
+  realm: obo-demo-realm
+  client-id: api-service-1-client
+  client-secret: api-service-1-secret
+
+api-service-2:
+  url: ${API_SERVICE_2_URL:http://localhost:8082}
+
+logging:
+  level:
+    com.example.apiservice1: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.web.reactive.function.client: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,caches
+  endpoint:
+    health:
+      show-details: always
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${KEYCLOAK_URL}/realms/obo-demo-realm/protocol/openid-connect/certs
+
+keycloak:
+  url: ${KEYCLOAK_URL}
+
+api-service-2:
+  url: ${API_SERVICE_2_URL}

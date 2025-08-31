@@ -1,0 +1,26 @@
+logging:
+  level:
+    root: trace
+
+server:
+  port: 8082
+
+spring:
+  application:
+    name: api-service-2
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${KEYCLOAK_URL:http://localhost:8081}/realms/obo-demo-realm/protocol/openid-connect/certs
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always

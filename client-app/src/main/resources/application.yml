@@ -1,0 +1,56 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: client-app
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: client-app-client
+            client-secret: ""
+            scope: openid,profile,email
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/keycloak
+        provider:
+          keycloak:
+            issuer-uri: ${KEYCLOAK_URL:http://localhost:8081}/realms/obo-demo-realm
+            user-name-attribute: preferred_username
+
+api-service-1:
+  url: ${API_SERVICE_1_URL:http://localhost:8083}
+
+logging:
+  level:
+    com.example.clientapp: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.web.reactive.function.client: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            redirect-uri: http://client-app:8080/login/oauth2/code/keycloak
+        provider:
+          keycloak:
+            issuer-uri: ${KEYCLOAK_URL}/realms/obo-demo-realm
+
+api-service-1:
+  url: ${API_SERVICE_1_URL}

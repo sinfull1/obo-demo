@@ -1,0 +1,663 @@
+{
+  "id": "obo-demo-realm",
+  "realm": "obo-demo-realm",
+  "notBefore": 0,
+  "defaultSignatureAlgorithm": "RS256",
+  "revokeRefreshToken": false,
+  "refreshTokenMaxReuse": 0,
+  "accessTokenLifespan": 300,
+  "accessTokenLifespanForImplicitFlow": 900,
+  "ssoSessionIdleTimeout": 1800,
+  "ssoSessionMaxLifespan": 36000,
+  "ssoSessionIdleTimeoutRememberMe": 0,
+  "ssoSessionMaxLifespanRememberMe": 0,
+  "offlineSessionIdleTimeout": 2592000,
+  "offlineSessionMaxLifespanEnabled": false,
+  "offlineSessionMaxLifespan": 5184000,
+  "clientSessionIdleTimeout": 0,
+  "clientSessionMaxLifespan": 0,
+  "clientOfflineSessionIdleTimeout": 0,
+  "clientOfflineSessionMaxLifespan": 0,
+  "accessCodeLifespan": 60,
+  "accessCodeLifespanUserAction": 300,
+  "accessCodeLifespanLogin": 1800,
+  "actionTokenGeneratedByAdminLifespan": 43200,
+  "actionTokenGeneratedByUserLifespan": 300,
+  "oauth2DeviceCodeLifespan": 600,
+  "oauth2DevicePollingInterval": 5,
+  "enabled": true,
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "registrationEmailAsUsername": false,
+  "rememberMe": false,
+  "verifyEmail": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": false,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": false,
+  "permanentLockout": false,
+  "maxFailureWaitSeconds": 900,
+  "minimumQuickLoginWaitSeconds": 60,
+  "waitIncrementSeconds": 60,
+  "quickLoginCheckMilliSeconds": 1000,
+  "maxDeltaTimeSeconds": 43200,
+  "failureFactor": 30,
+  "roles": {
+    "realm": [
+      {
+        "id": "user-role-id",
+        "name": "user_role",
+        "description": "Standard user role",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "obo-demo-realm"
+      },
+      {
+        "id": "data-admin-role-id",
+        "name": "data_admin",
+        "description": "Data administrator role with access to sensitive administrative data",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "obo-demo-realm"
+      }
+    ],
+    "client": {
+      "realm-management": [
+        {
+          "id": "impersonation-role-id",
+          "name": "impersonation",
+          "description": "Allows token impersonation",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "realm-management-client-id"
+        }
+      ]
+    }
+  },
+  "groups": [],
+  "defaultRoles": ["offline_access", "uma_authorization"],
+  "requiredCredentials": ["password"],
+  "otpPolicyType": "totp",
+  "otpPolicyAlgorithm": "HmacSHA1",
+  "otpPolicyInitialCounter": 0,
+  "otpPolicyDigits": 6,
+  "otpPolicyLookAheadWindow": 1,
+  "otpPolicyPeriod": 30,
+  "otpSupportedApplications": ["FreeOTP", "Google Authenticator"],
+  "users": [
+    {
+      "id": "testuser-id",
+      "username": "testuser",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "firstName": "Test",
+      "lastName": "User",
+      "email": "testuser@example.com",
+      "attributes": {
+        "department": ["Engineering"],
+        "employee_id": ["ENG-001"],
+        "security_clearance": ["MEDIUM"]
+      },
+      "credentials": [
+        {
+          "id": "testuser-password-id",
+          "type": "password",
+          "userLabel": "My password",
+          "createdDate": 1699000000000,
+          "secretData": "{\"value\":\"cGFzc3dvcmQ=\",\"salt\":\"YWJjZGVmZ2hpams=\",\"additionalParameters\":{}}",
+          "credentialData": "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}",
+          "temporary": false
+        }
+      ],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": ["user_role"],
+      "clientRoles": {},
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "admin-user-id",
+      "username": "adminuser",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "firstName": "Admin",
+      "lastName": "User",
+      "email": "adminuser@example.com",
+      "attributes": {
+        "department": ["IT"],
+        "employee_id": ["IT-001"],
+        "security_clearance": ["HIGH"]
+      },
+      "credentials": [
+        {
+          "id": "adminuser-password-id",
+          "type": "password",
+          "userLabel": "Admin password",
+          "createdDate": 1699000000000,
+          "secretData": "{\"value\":\"YWRtaW5wYXNzd29yZA==\",\"salt\":\"YWJjZGVmZ2hpams=\",\"additionalParameters\":{}}",
+          "credentialData": "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}",
+          "temporary": false
+        }
+      ],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": ["user_role", "data_admin"],
+      "clientRoles": {},
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "hr-user-id",
+      "username": "hruser",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "firstName": "HR",
+      "lastName": "User",
+      "email": "hruser@example.com",
+      "attributes": {
+        "department": ["HR"],
+        "employee_id": ["HR-001"],
+        "security_clearance": ["HIGH"]
+      },
+      "credentials": [
+        {
+          "id": "hruser-password-id",
+          "type": "password",
+          "userLabel": "HR password",
+          "createdDate": 1699000000000,
+          "secretData": "{\"value\":\"aHJwYXNzd29yZA==\",\"salt\":\"YWJjZGVmZ2hpams=\",\"additionalParameters\":{}}",
+          "credentialData": "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}",
+          "temporary": false
+        }
+      ],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": ["user_role"],
+      "clientRoles": {},
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "finance-user-id",
+      "username": "financeuser",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "firstName": "Finance",
+      "lastName": "User",
+      "email": "financeuser@example.com",
+      "attributes": {
+        "department": ["Finance"],
+        "employee_id": ["FIN-001"],
+        "security_clearance": ["MEDIUM"]
+      },
+      "credentials": [
+        {
+          "id": "financeuser-password-id",
+          "type": "password",
+          "userLabel": "Finance password",
+          "createdDate": 1699000000000,
+          "secretData": "{\"value\":\"ZmluYW5jZXBhc3N3b3Jk\",\"salt\":\"YWJjZGVmZ2hpams=\",\"additionalParameters\":{}}",
+          "credentialData": "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}",
+          "temporary": false
+        }
+      ],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": ["user_role"],
+      "clientRoles": {},
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "service-account-api-service-1-client",
+      "username": "service-account-api-service-1-client",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "serviceAccountClientId": "api-service-1-client",
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [],
+      "clientRoles": {
+        "realm-management": ["impersonation"]
+      },
+      "notBefore": 0,
+      "groups": []
+    }
+  ],
+  "scopeMappings": [],
+  "clientScopeMappings": {
+    "realm-management": [
+      {
+        "client": "api-service-1-client",
+        "roles": ["impersonation"]
+      }
+    ]
+  },
+  "clients": [
+    {
+      "id": "client-app-client-id",
+      "clientId": "client-app-client",
+      "name": "Client App",
+      "description": "Public client for user-facing web application",
+      "rootUrl": "http://localhost:8080",
+      "adminUrl": "",
+      "baseUrl": "/",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "",
+      "registrationAccessToken": "",
+      "defaultRoles": [],
+      "redirectUris": [
+        "http://localhost:8080/login/oauth2/code/keycloak",
+        "http://client-app:8080/login/oauth2/code/keycloak"
+      ],
+      "webOrigins": ["*"],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "publicClient": true,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "saml.assertion.signature": "false",
+        "saml.multivalued.roles": "false",
+        "saml.force.post.binding": "false",
+        "saml.encrypt": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "saml.server.signature": "false",
+        "saml.server.signature.keyinfo.ext": "false",
+        "exclude.session.state.from.auth.response": "false",
+        "oidc.ciba.grant.enabled": "false",
+        "saml.artifact.binding": "false",
+        "backchannel.logout.session.required": "true",
+        "client_credentials.use_refresh_token": "false",
+        "saml_force_name_id_format": "false",
+        "require.pushed.authorization.requests": "false",
+        "saml.client.signature": "false",
+        "tls.client.certificate.bound.access.tokens": "false",
+        "saml.authnstatement": "false",
+        "display.on.consent.screen": "false",
+        "saml.onetimeuse.condition": "false"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": true,
+      "nodeReRegistrationTimeout": -1,
+      "protocolMappers": [
+        {
+          "id": "department-mapper-id",
+          "name": "Department Mapper",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "department",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "department",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "id": "employee-id-mapper-id",
+          "name": "Employee ID Mapper",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "employee_id",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "employee_id",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "name": "API Service 1 Audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "config": {
+            "included.client.audience": "api-service-1-client",
+            "access.token.claim": "true"
+          }
+        },
+        {
+          "id": "security-clearance-mapper-id",
+          "name": "Security Clearance Mapper",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "security_clearance",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "security_clearance",
+            "jsonType.label": "String"
+          }
+        }
+      ],
+      "defaultClientScopes": ["web-origins", "profile", "roles", "email"],
+      "optionalClientScopes": ["address", "phone", "offline_access", "microprofile-jwt"],
+      "access": {
+        "view": true,
+        "configure": true,
+        "manage": true
+      }
+    },
+    {
+      "id": "api-service-1-client-id",
+      "clientId": "api-service-1-client",
+      "name": "API Service 1",
+      "description": "Confidential client for middle-tier service",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "api-service-1-secret",
+      "registrationAccessToken": "",
+      "defaultRoles": [],
+      "redirectUris": [],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oauth2.device.authorization.grant.enabled": "false",
+        "oidc.ciba.grant.enabled": "false",
+        "client_credentials.use_refresh_token": "false",
+        "require.pushed.authorization.requests": "false",
+        "tls.client.certificate.bound.access.tokens": "false",
+        "display.on.consent.screen": "false"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": true,
+      "nodeReRegistrationTimeout": -1,
+      "protocolMappers": [
+        {
+          "id": "api-service-1-audience-mapper",
+          "name": "Audience for api-service-2",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.client.audience": "api-service-2-client",
+            "id.token.claim": "false",
+            "access.token.claim": "true"
+          }
+        },
+        {
+          "id": "api-service-1-department-mapper",
+          "name": "Department Mapper for Service 1",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "department",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "department",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "id": "api-service-1-employee-id-mapper",
+          "name": "Employee ID Mapper for Service 1",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "employee_id",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "employee_id",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "id": "api-service-1-security-cl-mapper",
+          "name": "Security Clearance Mapper for Service 1",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "security_clearance",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "security_clearance",
+            "jsonType.label": "String"
+          }
+        }
+      ],
+      "defaultClientScopes": ["web-origins", "profile", "roles", "email"],
+      "optionalClientScopes": ["address", "phone", "offline_access", "microprofile-jwt"],
+      "access": {
+        "view": true,
+        "configure": true,
+        "manage": true
+      }
+    },
+    {
+      "id": "api-service-2-client-id",
+      "clientId": "api-service-2-client",
+      "name": "API Service 2",
+      "description": "Bearer-only client for downstream resource server",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "registrationAccessToken": "",
+      "defaultRoles": [],
+      "redirectUris": [],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": true,
+      "consentRequired": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oauth2.device.authorization.grant.enabled": "false",
+        "oidc.ciba.grant.enabled": "false",
+        "client_credentials.use_refresh_token": "false",
+        "require.pushed.authorization.requests": "false",
+        "tls.client.certificate.bound.access.tokens": "false",
+        "display.on.consent.screen": "false"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": true,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": ["web-origins", "profile", "roles", "email"],
+      "optionalClientScopes": ["address", "phone", "offline_access", "microprofile-jwt"],
+      "access": {
+        "view": true,
+        "configure": true,
+        "manage": true
+      }
+    },
+    {
+      "id": "realm-management-client-id",
+      "clientId": "realm-management",
+      "name": "${client_realm-management}",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "defaultRoles": ["view-realm", "view-identity-providers", "manage-identity-providers", "impersonation", "create-client", "manage-users", "query-realms", "view-authorization", "query-clients", "query-users", "manage-events", "manage-realm", "view-events", "view-users", "view-clients", "manage-authorization", "manage-clients", "query-groups"],
+      "redirectUris": [],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": true,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": 0,
+      "defaultClientScopes": ["web-origins", "profile", "roles", "email"],
+      "optionalClientScopes": ["address", "phone", "offline_access", "microprofile-jwt"]
+    }
+  ],
+  "clientScopes": [
+    {
+      "id": "roles-id",
+      "name": "roles",
+      "description": "OpenID Connect scope for add user roles to the access token",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "false",
+        "display.on.consent.screen": "true",
+        "consent.screen.text": "${rolesScopeConsentText}"
+      },
+      "protocolMappers": [
+        {
+          "id": "audience-resolve-id",
+          "name": "audience resolve",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-resolve-mapper",
+          "consentRequired": false,
+          "config": {}
+        },
+        {
+          "id": "realm-roles-id",
+          "name": "realm roles",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-realm-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.attribute": "foo",
+            "access.token.claim": "true",
+            "claim.name": "realm_access.roles",
+            "jsonType.label": "String",
+            "multivalued": "true"
+          }
+        }
+      ]
+    },
+    {
+      "id": "profile-id",
+      "name": "profile",
+      "description": "OpenID Connect built-in scope: profile",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "true",
+        "consent.screen.text": "${profileScopeConsentText}"
+      },
+      "protocolMappers": [
+        {
+          "id": "username-id",
+          "name": "username",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-property-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "username",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "preferred_username",
+            "jsonType.label": "String"
+          }
+        }
+      ]
+    },
+    {
+      "id": "email-id",
+      "name": "email",
+      "description": "OpenID Connect built-in scope: email",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "true",
+        "consent.screen.text": "${emailScopeConsentText}"
+      },
+      "protocolMappers": [
+        {
+          "id": "email-verified-id",
+          "name": "email verified",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-property-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "emailVerified",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "email_verified",
+            "jsonType.label": "boolean"
+          }
+        },
+        {
+          "id": "email-id-mapper",
+          "name": "email",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-property-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "email",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "email",
+            "jsonType.label": "String"
+          }
+        }
+      ]
+    },
+    {
+      "id": "web-origins-id",
+      "name": "web-origins",
+      "description": "OpenID Connect scope for add allowed web origins to the access token",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "false",
+        "display.on.consent.screen": "false",
+        "consent.screen.text": ""
+      },
+      "protocolMappers": [
+        {
+          "id": "allowed-web-origins-id",
+          "name": "allowed web origins",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-allowed-origins-mapper",
+          "consentRequired": false,
+          "config": {}
+        }
+      ]
+    }
+  ]
+}

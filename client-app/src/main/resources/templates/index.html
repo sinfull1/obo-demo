@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>OAuth 2.0 On-Behalf-Of Demo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">OAuth 2.0 On-Behalf-Of Flow Demo</h2>
+                </div>
+                <div class="card-body text-center">
+                    <p class="lead">Welcome to the OAuth 2.0 On-Behalf-Of (OBO) Flow demonstration!</p>
+                    <p>This application demonstrates secure service-to-service communication where:</p>
+                    <ul class="text-start">
+                        <li>You log in through Keycloak</li>
+                        <li>The Client App calls API Service 1 with your token</li>
+                        <li>API Service 1 exchanges your token for a new token to call API Service 2</li>
+                        <li>API Service 2 validates the token and returns secure data</li>
+                    </ul>
+                    <div class="mt-4">
+                        <a href="/oauth2/authorization/keycloak" class="btn btn-primary btn-lg">
+                            Login with Keycloak
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

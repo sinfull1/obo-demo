@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.3.1
+    container_name: keycloak
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: dev-mem
+      KC_HEALTH_ENABLED: true
+      KC_METRICS_ENABLED: true
+      # JVM tuning for memory optimization
+      JAVA_OPTS_APPEND: "-Xms512m -Xmx1024m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Djava.net.preferIPv4Stack=true"
+      KC_LOG_LEVEL: INFO
+    command:
+      - start-dev
+      - --import-realm
+      - --http-relative-path=/
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./keycloak/realm-export.json:/opt/keycloak/data/import/realm-export.json
+      - keycloak_data:/opt/keycloak/data
+    networks:
+      - obo-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/health/ready || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 15
+      start_period: 90s
+    deploy:
+      resources:
+        limits:
+          memory: 1.5G
+        reservations:
+          memory: 512M
+
+  api-service-2:
+    build: ./api-service-2
+    container_name: api-service-2
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - KEYCLOAK_URL=http://keycloak:8080
+    ports:
+      - "8082:8082"
+    depends_on:
+      keycloak:
+        condition: service_healthy
+    networks:
+      - obo-network
+
+  api-service-1:
+    build: ./api-service-1
+    container_name: api-service-1
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - KEYCLOAK_URL=http://keycloak:8080
+      - API_SERVICE_2_URL=http://api-service-2:8082
+    ports:
+      - "8083:8083"
+    depends_on:
+      keycloak:
+        condition: service_healthy
+      api-service-2:
+        condition: service_started
+    networks:
+      - obo-network
+
+  client-app:
+    build: ./client-app
+    container_name: client-app
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - KEYCLOAK_URL=http://keycloak:8080
+      - API_SERVICE_1_URL=http://api-service-1:8083
+    ports:
+      - "8080:8080"
+    depends_on:
+      keycloak:
+        condition: service_healthy
+      api-service-1:
+        condition: service_started
+    networks:
+      - obo-network
+
+networks:
+  obo-network:
+    driver: bridge
+
+volumes:
+  keycloak_data:
